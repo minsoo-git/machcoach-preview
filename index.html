@@ -1,0 +1,1065 @@
+<!-- 자동 생성된 사본이다. 손으로 고치지 마라.
+     원본: docs/product/onboarding-prototype.html
+     생성: python3 tools/make_share_copy.py -->
+<title>매치코치 진단</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=IBM+Plex+Sans+KR:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+  :root{
+    --ground:#F3F4F1; --surface:#FFFFFF; --surface-2:#EAECE7; --surface-3:#F7F8F5;
+    --ink:#171A18; --ink-2:#3D423C; --muted:#6E736D;
+    --rule:#DBDFD7; --rule-soft:#E7EAE4;
+    --accent:#2F5D50; --accent-soft:#CBDAD3; --accent-wash:#EDF3F0;
+    --warn:#8A6A2F; --warn-wash:#F7F1E4;
+    --shadow:0 1px 2px rgba(23,26,24,.05), 0 8px 28px -14px rgba(23,26,24,.24);
+    --step--1:.8125rem; --step-0:.9375rem; --step-1:1.0625rem;
+    --step-2:1.3125rem; --step-3:1.75rem; --step-4:2.5rem;
+    --sans:"IBM Plex Sans KR",-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo",sans-serif;
+    --serif:"Gowun Batang","Nanum Myeongjo",Georgia,serif;
+    --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  }
+  @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+    --ground:#12150F; --surface:#1A1E19; --surface-2:#232821; --surface-3:#1E231D;
+    --ink:#E9ECE4; --ink-2:#C2C8BC; --muted:#8D948A;
+    --rule:#2E3430; --rule-soft:#262B27;
+    --accent:#89BCA9; --accent-soft:#2A3F38; --accent-wash:#1D2823;
+    --warn:#C9A45F; --warn-wash:#2A2418;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 10px 30px -16px rgba(0,0,0,.8);}}
+  :root[data-theme="dark"]{
+    --ground:#12150F; --surface:#1A1E19; --surface-2:#232821; --surface-3:#1E231D;
+    --ink:#E9ECE4; --ink-2:#C2C8BC; --muted:#8D948A;
+    --rule:#2E3430; --rule-soft:#262B27;
+    --accent:#89BCA9; --accent-soft:#2A3F38; --accent-wash:#1D2823;
+    --warn:#C9A45F; --warn-wash:#2A2418;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 10px 30px -16px rgba(0,0,0,.8);}
+
+  *{box-sizing:border-box}
+  body{background:var(--ground);color:var(--ink);font-family:var(--sans);
+       font-size:var(--step-0);font-weight:300;line-height:1.7;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:660px;margin:0 auto;padding:clamp(26px,5vw,52px) clamp(18px,4vw,28px) 80px}
+  [hidden]{display:none!important}
+
+  .eyebrow{font-family:var(--mono);font-size:var(--step--1);letter-spacing:.14em;
+           text-transform:uppercase;color:var(--muted);font-weight:500}
+  h1{font-family:var(--serif);font-weight:700;font-size:var(--step-4);
+     line-height:1.14;margin:12px 0 16px;letter-spacing:-.01em;text-wrap:balance}
+  h2{font-family:var(--serif);font-weight:700;font-size:var(--step-2);margin:0 0 12px}
+  p{margin:0 0 12px}
+  .lede{color:var(--ink-2);font-size:var(--step-1)}
+
+  .btn{font-family:var(--sans);font-size:var(--step-0);font-weight:500;
+       padding:11px 22px;border-radius:2px;border:1px solid var(--accent);
+       background:var(--accent);color:var(--ground);cursor:pointer;transition:.15s}
+  .btn:hover{filter:brightness(1.08)}
+  .btn:disabled{opacity:.45;cursor:not-allowed}
+  .btn.ghost{background:transparent;color:var(--ink-2);border-color:var(--rule)}
+  .btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+  /* progress */
+  .prog{display:flex;align-items:center;gap:12px;margin:0 0 26px;
+        padding-bottom:16px;border-bottom:1px solid var(--rule)}
+  .prog .lbl{font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:var(--muted)}
+  .prog .track{flex:1;height:3px;background:var(--surface-2);border-radius:2px;overflow:hidden}
+  .prog .bar{height:100%;background:var(--accent);width:0;transition:width .4s ease}
+
+  /* coach turn */
+  .turn{border-left:2px solid var(--accent);padding:2px 0 2px 18px;margin:0 0 20px}
+  .turn p{font-size:var(--step-1);color:var(--ink);line-height:1.65;margin:0 0 8px}
+  .turn p:last-child{margin-bottom:0}
+  .turn .stage{color:var(--muted);font-size:var(--step--1)}
+
+  .said{background:var(--surface-3);border:1px solid var(--rule-soft);border-radius:3px;
+        padding:13px 16px;margin:0 0 20px;color:var(--ink-2);font-size:var(--step-0)}
+  .said .who{font-family:var(--mono);font-size:10px;letter-spacing:.12em;
+             text-transform:uppercase;color:var(--muted);display:block;margin-bottom:5px}
+
+  textarea{width:100%;min-height:110px;padding:14px 16px;font-family:var(--sans);
+           font-size:var(--step-0);font-weight:300;line-height:1.65;color:var(--ink);
+           background:var(--surface);border:1px solid var(--rule);border-radius:3px;
+           resize:vertical;transition:.15s}
+  textarea:focus{outline:none;border-color:var(--accent)}
+  textarea::placeholder{color:var(--muted)}
+  .row{display:flex;gap:10px;align-items:center;margin-top:14px;flex-wrap:wrap}
+  .row .note{color:var(--muted);font-size:var(--step--1)}
+
+  /* thinking */
+  .think{display:flex;align-items:center;gap:12px;padding:22px;
+         background:var(--surface);border:1px solid var(--rule);border-radius:3px;margin:0 0 18px}
+  .dot{width:7px;height:7px;border-radius:50%;background:var(--accent);animation:p 1.4s infinite}
+  .dot:nth-child(2){animation-delay:.2s}.dot:nth-child(3){animation-delay:.4s}
+  @keyframes p{0%,60%,100%{opacity:.25}30%{opacity:1}}
+  @media (prefers-reduced-motion:reduce){.dot{animation:none;opacity:.6}}
+
+  /* card */
+  .card{background:var(--surface);border:1px solid var(--rule);border-radius:3px;
+        box-shadow:var(--shadow);padding:30px 28px 26px;display:flex;flex-direction:column;gap:22px}
+  .code-row{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap}
+  .code{font-family:var(--mono);font-weight:600;font-size:var(--step-3);
+        letter-spacing:.06em;color:var(--ink);line-height:1}
+  .code .weak{color:var(--muted);font-weight:400}
+  .brandmark{font-family:var(--mono);font-size:11px;letter-spacing:.18em;
+             text-transform:uppercase;color:var(--muted);padding-bottom:4px}
+  .name{font-family:var(--serif);font-weight:700;font-size:var(--step-2);line-height:1.25;margin:0}
+  .oneliner{color:var(--ink-2);margin:6px 0 0;font-size:var(--step-0)}
+
+  .axes{display:flex;flex-direction:column;gap:13px;padding:20px 0;
+        border-top:1px solid var(--rule-soft);border-bottom:1px solid var(--rule-soft)}
+  .axis{display:grid;gap:5px}
+  .axis-labels{display:flex;justify-content:space-between;align-items:baseline;
+               font-size:11px;letter-spacing:.05em;color:var(--muted);font-family:var(--mono)}
+  .axis-labels b{font-weight:500;color:var(--ink-2)}
+  .track2{position:relative;height:8px;background:var(--surface-2);border-radius:1px}
+  .track2::before{content:"";position:absolute;left:50%;top:-3px;bottom:-3px;width:1px;
+                  background:var(--rule);transform:translateX(-.5px)}
+  .fill{position:absolute;top:0;bottom:0;background:var(--accent);border-radius:1px}
+  .fill.faint{background:var(--accent-soft)}
+  .axis-val{font-family:var(--mono);font-size:11px;color:var(--muted);font-variant-numeric:tabular-nums}
+
+  .block{display:flex;flex-direction:column;gap:5px}
+  .block h4{margin:0;font-size:11px;font-family:var(--mono);letter-spacing:.13em;
+            text-transform:uppercase;color:var(--accent);font-weight:600}
+  .block p{margin:0;color:var(--ink-2)}
+  .blocks{display:flex;flex-direction:column;gap:18px}
+  .quote{border-left:2px solid var(--accent-soft);padding-left:12px;color:var(--muted);
+         font-size:var(--step--1);margin-top:6px}
+
+  /* compat */
+  .compat{margin-top:26px;background:var(--surface);border:1px solid var(--rule);
+          border-radius:3px;overflow:hidden}
+  .compat .ch{padding:22px 26px 16px;border-bottom:1px solid var(--rule-soft)}
+  .compat .ch h2{margin:0 0 6px}
+  .compat .ch p{margin:0;color:var(--muted);font-size:var(--step--1)}
+  .crow{padding:16px 26px;border-bottom:1px solid var(--rule-soft);
+        display:grid;grid-template-columns:7em 1fr;gap:4px 16px;align-items:baseline}
+  .crow:last-child{border-bottom:none}
+  .crow .ck{font-family:var(--mono);font-size:11px;letter-spacing:.06em;color:var(--muted);padding-top:3px}
+  .crow .cv{color:var(--ink-2)}
+  .crow .cv b{color:var(--ink);font-weight:500}
+  .crow.dim .cv{color:var(--muted)}
+
+  .caution{margin-top:20px;padding:18px 20px;background:var(--warn-wash);
+           border:1px solid var(--warn);border-radius:3px;font-size:var(--step--1);color:var(--ink-2)}
+  .caution h4{margin:0 0 8px;font-family:var(--mono);font-size:10px;letter-spacing:.13em;
+              text-transform:uppercase;color:var(--warn);font-weight:600}
+  .caution p{margin:0 0 8px}
+  .caution p:last-child{margin:0}
+
+  .err{padding:18px 20px;background:var(--warn-wash);border:1px solid var(--warn);
+       border-radius:3px;color:var(--ink-2);margin-bottom:16px}
+
+  /* steps */
+  ol.steps{list-style:none;counter-reset:st;padding:0;margin:0 0 26px;
+           display:grid;gap:1px;background:var(--rule-soft);border:1px solid var(--rule-soft)}
+  ol.steps li{counter-increment:st;background:var(--surface);padding:12px 16px;
+              display:flex;align-items:baseline;gap:12px}
+  ol.steps li::before{content:counter(st);font-family:var(--mono);font-size:11px;
+                      color:var(--accent);font-weight:600;min-width:1.1em}
+  ol.steps b{font-weight:500}
+  ol.steps span{color:var(--muted);font-size:var(--step--1);margin-left:auto;text-align:right}
+
+  /* form */
+  .fld{padding:18px 0;border-bottom:1px solid var(--rule-soft)}
+  .fld:first-child{padding-top:0}
+  .fld > label{display:block;font-weight:500;margin-bottom:4px;color:var(--ink)}
+  .fld .hint{color:var(--muted);font-size:var(--step--1);margin:0 0 10px}
+  .opts{display:flex;flex-wrap:wrap;gap:8px}
+  .opts label{display:inline-flex;align-items:center;gap:7px;padding:8px 13px;
+              border:1px solid var(--rule);border-radius:2px;background:var(--surface);
+              cursor:pointer;font-size:var(--step--1);transition:.13s}
+  .opts label:hover{border-color:var(--accent-soft)}
+  .opts input{accent-color:var(--accent);margin:0}
+  .opts label:has(input:checked){border-color:var(--accent);background:var(--accent-wash);color:var(--ink)}
+  .fld input[type=number],.fld input[type=text]{padding:9px 12px;border:1px solid var(--rule);
+       border-radius:2px;background:var(--surface);color:var(--ink);font-family:var(--sans);
+       font-size:var(--step-0);font-weight:300;width:9em}
+  .abs{margin-top:10px;display:inline-flex;align-items:center;gap:8px;
+       font-size:var(--step--1);color:var(--ink-2);cursor:pointer}
+
+  /* 신념 블록 — 선택지가 길어 세로로 쌓는다. .opts 의 칩 배치로는 읽히지 않는다 */
+  .vopts{display:flex;flex-direction:column;gap:6px}
+  .vopts label{display:flex;align-items:flex-start;gap:10px;padding:11px 14px;
+               border:1px solid var(--rule);border-radius:2px;background:var(--surface);
+               cursor:pointer;font-size:var(--step-0);line-height:1.5;transition:.13s}
+  .vopts label:hover{border-color:var(--accent-soft)}
+  .vopts input{accent-color:var(--accent);margin:3px 0 0}
+  .vopts label:has(input:checked){border-color:var(--accent);background:var(--accent-wash)}
+  /* 두 속담을 마주 놓는다 — 선택지가 이 둘 사이의 위치라는 것이 보여야 한다 */
+  .poles{display:flex;align-items:center;gap:14px;margin:0 0 12px;
+         font-family:var(--serif);font-size:var(--step-1);color:var(--ink)}
+  .poles span{flex:1;text-align:center;padding:11px 10px;background:var(--surface-2);
+              border-radius:2px}
+  .poles em{font-style:normal;color:var(--muted);font-size:var(--step--1);font-family:var(--sans)}
+  /* 사주·궁합 두 문항을 한 블록으로 묶는다 — "문항 둘"이 아니라 "블록 하나"로 읽혀야 한다 */
+  .qgroup{border:1px solid var(--rule-soft);border-radius:3px;padding:0 18px;margin:18px 0}
+  .qgroup > .gh{font-family:var(--mono);font-size:var(--step--1);letter-spacing:.1em;
+                color:var(--muted);padding:14px 0 0}
+  .qgroup .fld:last-child{border-bottom:0}
+  /* 마무리 발화는 네 문항을 다 답하기 전에는 보이지 않는다 (사전 고지 금지) */
+  #beliefClose{margin-top:26px}
+
+  /* filter result */
+  .fres{margin-top:26px;border:1px solid var(--rule);border-radius:3px;background:var(--surface);overflow:hidden}
+  .fres .fh{padding:22px 26px 16px;border-bottom:1px solid var(--rule-soft)}
+  .fres .fh h2{margin:0 0 6px}
+  .fres .fh p{margin:0;color:var(--muted);font-size:var(--step--1)}
+  .bigline{padding:22px 26px;border-bottom:1px solid var(--rule-soft);
+           font-family:var(--serif);font-size:var(--step-2);font-weight:700;line-height:1.4}
+  .bigline.none{color:var(--warn)}
+  .fbar{display:flex;height:10px;margin:0 26px 4px}
+  .fbar i{display:block;height:100%}
+  .flist{padding:6px 26px 20px;display:grid;gap:7px}
+  .flist div{display:grid;grid-template-columns:1fr auto;gap:12px;
+             font-size:var(--step--1);color:var(--ink-2);
+             padding-bottom:6px;border-bottom:1px dotted var(--rule-soft)}
+  .flist b{font-family:var(--mono);font-variant-numeric:tabular-nums;color:var(--ink)}
+
+  footer{margin-top:44px;padding-top:20px;border-top:1px solid var(--rule);
+         color:var(--muted);font-size:var(--step--1)}
+  footer strong{color:var(--ink-2);font-weight:500}
+
+  /* --- 2026-09-07 추가 --- */
+  .resume{border:1px solid var(--accent-soft);background:var(--accent-wash);
+          border-radius:3px;padding:16px 18px;margin:0 0 22px}
+  .resume p{margin:0 0 10px;color:var(--ink-2)}
+  .resume .when{font-family:var(--mono);font-size:var(--step--1);color:var(--muted)}
+  .qnote{color:var(--warn);font-size:var(--step--1);margin-top:8px}
+  .qnote[hidden]{display:none!important}
+  .backrow{margin:0 0 14px}
+  .backlink{background:none;border:0;padding:0;cursor:pointer;font-family:var(--mono);
+            font-size:var(--step--1);letter-spacing:.06em;color:var(--muted)}
+  .backlink:hover{color:var(--ink-2)}
+  .backlink:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+  .saved{font-family:var(--mono);font-size:11px;letter-spacing:.08em;color:var(--muted);
+         opacity:0;transition:opacity .3s}
+  .saved.on{opacity:1}
+  .clock{display:flex;flex-wrap:wrap;gap:18px;padding:16px 18px;margin:22px 0 0;
+         background:var(--surface-3);border:1px solid var(--rule-soft);border-radius:3px}
+  .clock div{display:flex;flex-direction:column;gap:2px}
+  .clock span{font-family:var(--mono);font-size:10px;letter-spacing:.12em;
+              text-transform:uppercase;color:var(--muted)}
+  .clock b{font-family:var(--mono);font-size:var(--step-1);font-weight:600;
+           font-variant-numeric:tabular-nums;color:var(--ink)}
+  .clock b.over{color:var(--warn)}
+</style>
+
+<div class="wrap">
+
+<!-- ===== intro ===== -->
+<section id="intro">
+  <div class="eyebrow">매치코치 · 시험판</div>
+  <h1>온보딩 전체</h1>
+  <p class="lede">조건을 받고, 일곱 상황을 이야기하고, 어떤 분을 소개할지 정하고, 결과를 보여드립니다. 실제 서비스의 순서 그대로입니다.</p>
+  <ol class="steps">
+    <li><b>조건</b><span>2분 · 소개 대상을 정하는 사실</span></li>
+    <li><b>대화</b><span>10~15분 · 일곱 상황</span></li>
+    <li><b>소개 조건</b><span>1분 · 누구를 걸러낼지</span></li>
+    <li><b>결과</b><span>유형 카드 · 조건으로 거른 결과</span></li>
+  </ol>
+  <div class="turn">
+    <p><strong>정답이 없는 질문들이에요.</strong> 좋아 보이는 답보다 실제로 어떻게 하실 것 같은지가 훨씬 쓸모 있어요. 잘 모르겠으면 모르겠다고 하셔도 돼요.</p>
+    <p class="stage">답변은 <strong>이 브라우저에만</strong> 임시로 저장됩니다. 저희 서버로 가지 않고, 진단이 끝나면 지워집니다. 중간에 창을 닫으셔도 이어서 하실 수 있습니다.</p>
+  </div>
+  <div class="row"><button class="btn" id="start">시작하기</button></div>
+  <div id="unavailable" hidden>
+    <div class="err" style="margin-top:18px"><strong>이 화면에서는 결과가 바로 나오지 않습니다.</strong> 문항에는 그대로 답하실 수 있고, 마지막에 <strong>답변을 파일로 저장</strong>하실 수 있습니다. 그 파일을 보내 주시면 결과지를 만들어 보내 드립니다.</div>
+  </div>
+</section>
+
+<!-- ===== A. 조건 폼 ===== -->
+<section id="formA" hidden>
+  <div class="prog"><span class="lbl">1 / 4 · 조건</span>
+    <span class="track"><span class="bar" style="width:12%"></span></span></div>
+  <h2 style="font-size:var(--step-3)">몇 가지만 먼저 여쭤볼게요</h2>
+  <p class="lede" style="margin-bottom:24px">2분이면 끝납니다. 여기서 받는 정보는 나중에 어떤 분을 소개할지 정하는 데 쓰입니다.</p>
+  <div id="formAbody"></div>
+  <div class="row"><button class="btn" id="toQuiz">다음</button>
+    <span class="note" id="formAnote"></span></div>
+</section>
+
+<!-- ===== A-belief. 신념 기준 (questions-belief-draft.md v0.2) ===== -->
+<section id="formBelief" hidden>
+  <div class="prog"><span class="lbl">1 / 4 · 조건</span>
+    <span class="track"><span class="bar" style="width:24%"></span></span></div>
+  <div class="turn"><p id="beliefIntro"></p></div>
+  <div id="beliefBody"></div>
+  <div id="beliefClose" hidden>
+    <div class="turn"><p id="beliefCloseText"></p></div>
+    <div class="row"><button class="btn" id="toQuiz2">다음</button></div>
+  </div>
+  <p class="note" id="beliefNote" style="margin-top:22px">다섯 가지에 다 답하시면 다음으로 넘어갑니다.</p>
+</section>
+
+<!-- ===== C. 소개 조건 ===== -->
+<section id="formC" hidden>
+  <div class="prog"><span class="lbl">3 / 4 · 소개 조건</span>
+    <span class="track"><span class="bar" style="width:78%"></span></span></div>
+  <h2 style="font-size:var(--step-3)">어떤 분을 소개해 드릴까요?</h2>
+  <p class="lede">지금은 조건을 따로 두지 않았습니다. 이대로 두시면 <strong>자녀가 있는 분, 결혼 시기가 다른 분도</strong> 만나실 수 있습니다.</p>
+  <p class="lede" style="margin-bottom:24px">걸러내고 싶은 게 있으면 지금 정해주세요. 나중에 바꾸셔도 됩니다.</p>
+  <div id="formCbody"></div>
+  <div class="caution" style="margin:22px 0">
+    <h4>넓혀드리지 않는 것</h4>
+    <p><strong>결혼 시기 · 자녀 계획 · 종교</strong>는 나중에 저희가 넓혀드리지 않습니다. 소개할 분이 없어도 이 세 가지는 그대로 둡니다.</p>
+  </div>
+  <div class="row"><button class="btn" id="toResult">결과 보기</button>
+    <button class="btn ghost" id="skipC">나중에 할게요</button></div>
+</section>
+
+<!-- ===== quiz ===== -->
+<section id="quiz" hidden>
+  <div class="prog">
+    <span class="lbl" id="progLabel">2 / 4 · 대화</span>
+    <span class="track"><span class="bar" id="progBar"></span></span>
+  </div>
+  <div id="qbody"></div>
+</section>
+
+<!-- ===== thinking ===== -->
+<section id="loading" hidden>
+  <div class="think"><span class="dot"></span><span class="dot"></span><span class="dot"></span>
+    <span style="color:var(--ink-2)">답변을 읽고 있어요. 30초에서 1분쯤 걸립니다.</span></div>
+  <div class="row"><button class="btn ghost" id="stop">그만두기</button></div>
+</section>
+
+<!-- ===== result ===== -->
+<section id="result" hidden></section>
+
+<footer>
+  <strong>시험판입니다.</strong> 조건 · 대화 · 소개 조건 · 결과까지 실제 순서를 그대로 돌립니다. 다른 것은 뒤에 붙는 <strong>주간 추천 발송</strong>과 <strong>코칭 리포트</strong>뿐입니다. 후보 12명은 시뮬레이션용 가상 인물입니다. 답변은 이 브라우저에만 임시로 남고(이어서 하기용) 진단이 끝나면 지워지며, 저희 서버로 전송되지 않습니다.
+</footer>
+
+</div>
+
+<script>
+const AX = [
+  {k:"conflict_rhythm",  hi:"immediate", lo:"pause",     H:"I", L:"P", hiK:"즉시 대면", loK:"시간 유예", nm:"갈등 처리 리듬"},
+  {k:"resource_posture", hi:"stability", lo:"growth",    H:"S", L:"G", hiK:"계획·안정", loK:"기회·성장", nm:"자원 운용"},
+  {k:"intimacy_distance",hi:"autonomy",  lo:"closeness", H:"A", L:"C", hiK:"독립",      loK:"밀착",      nm:"친밀 거리"},
+  {k:"emotional_expression",hi:"expressive",lo:"reserved",H:"X",L:"Q", hiK:"표현",      loK:"절제",      nm:"정서 표현"}
+];
+
+const COVER = {
+  conflict_rhythm:   ["B3","B4","B5","F","B6"],
+  resource_posture:  ["B4","B5","F"],
+  intimacy_distance: ["B1","B2","B3"],
+  emotional_expression: ["B1","B2","B3","B4","B5","F","B6"]
+};
+
+const Q = [
+  { id:"B1", main:["결혼하면 주말이 제일 많이 바뀐다고들 하죠.","회원님은 주말에 뭘 하실 때 제일 잘 쉬었다는 느낌이 드세요?"],
+    follow:"같이 있는 게 중요하세요, 각자 편한 대로 쉬는 게 중요하세요? 최근 주말은 실제로 어떻게 보내셨어요?" },
+  { id:"B2", main:["결혼하고 나서도 혼자 보내는 시간이나 따로 만나는 사람들이 있으시죠.","주말에 배우자 없이 친구들과 1박으로 가는 일정이 생기면 어떻게 하실 것 같으세요?"],
+    follow:"반대로 배우자가 그런다면요?" },
+  { id:"B3", main:["결혼하고 맞는 첫 추석이라고 해볼게요. 양가에서 같은 날 저녁에 모이자고 하셨어요. 두 집 다 차로 두 시간 거리라 하루에 둘 다는 어려워요.","어떻게 하실 것 같으세요?"],
+    follow:"그 결정에서 더 크게 걸리는 게 부모님 반응이에요, 아니면 배우자와 부딪히는 거예요? 그리고 작년 명절은 실제로 어떻게 보내셨어요?" },
+  { id:"B4", main:["전세 계약이 끝나가요. 지금보다 나은 집으로 옮기려면 대출을 꽤 크게 받아야 하고, 아니면 지금 수준을 유지하면서 돈을 모을 수도 있어요. 배우자는 옮기자는 쪽이에요.","회원님은 어느 쪽이실 것 같으세요?"],
+    follow:"그 판단에서 더 크게 작용한 게 대출 부담이에요, 아니면 지금이 옮길 때인가 하는 판단이에요? 그리고 지금 일이 안정적이라면 답이 달라지셨을까요?" },
+  { id:"B5", main:["아이가 어린이집에서 열이 난다고 연락이 왔어요. 두 분 다 오늘 빠지기 어려운 일정이 있어요.","실제로 어떻게 될 것 같으세요?"],
+    follow:"다른 사람 손을 빌릴 수 없다고 하면요? 둘 중 한 분이 빠져야 한다면 누가 될 것 같으세요?" },
+  { id:"F", main:["두 분이 지금껏 비슷하게 벌어 왔어요. 어느 저녁에 배우자가 이렇게 말해요. \"나 다니던 데 그만두고, 전부터 준비하던 거 해보려고. 자리 잡는 데 시간은 좀 걸릴 거야. 얼마나 걸릴지까지는 장담 못 하겠고.\" 그동안 집에 들어오는 수입은 한쪽만 남아요.","그 자리에서 뭐라고 하실 것 같으세요?"],
+    follow:"어떤 경우면 그 답이 달라질 것 같아요? 그게 어느 정도까지면 괜찮으세요?" },
+  { id:"B6", stage:"이번엔 조금 무거운 이야기예요. 편하게, 짧게 답하셔도 괜찮아요.",
+    main:["크게 다투고 하루가 지났어요. 서로 말을 안 하고 있어요.","먼저 말을 거는 쪽이세요, 상대가 올 때까지 두는 쪽이세요?"],
+    follow:"그 타이밍을 정하는 게 회원님 기분이에요, 아니면 할 말이 정리됐는지예요?" }
+];
+
+const POOL = [{"pid":"P01","sex":"M","by":1992,"region":"서울","timing":"1~2년","cp":"원함","ec":"없음","mh":"초혼","rel":"무교","smk":"비흡연","drk":"가끔","req_timing":["1년이내","1~2년","2~3년","3년이상"],"req_cp":["원함","원치않음","미정"],"cp_abs":false,"req_ec":["없음","있음-비양육","있음-양육중"],"req_mh":["초혼","재혼"],"req_rel":"무관","req_regions":null,"req_age_min":null,"req_age_max":null,"req_smk":["비흡연","전자담배","흡연"],"req_drk":["안함","가끔","주1~2","주3+"]},{"pid":"P02","sex":"F","by":1995,"region":"경기","timing":"1~2년","cp":"원함","ec":"없음","mh":"초혼","rel":"개신교","smk":"비흡연","drk":"가끔","req_timing":["1년이내","1~2년","2~3년","3년이상"],"req_cp":["원함","원치않음","미정"],"cp_abs":false,"req_ec":["없음","있음-비양육","있음-양육중"],"req_mh":["초혼","재혼"],"req_rel":"무관","req_regions":null,"req_age_min":null,"req_age_max":null,"req_smk":["비흡연","전자담배","흡연"],"req_drk":["안함","가끔","주1~2","주3+"]},{"pid":"P03","sex":"F","by":1990,"region":"서울","timing":"1년이내","cp":"미정","ec":"없음","mh":"초혼","rel":"무교","smk":"비흡연","drk":"주1~2","req_timing":["1년이내","1~2년","2~3년","3년이상"],"req_cp":["원함","원치않음","미정"],"cp_abs":false,"req_ec":["없음","있음-비양육","있음-양육중"],"req_mh":["초혼","재혼"],"req_rel":"무관","req_regions":null,"req_age_min":null,"req_age_max":null,"req_smk":["비흡연","전자담배","흡연"],"req_drk":["안함","가끔","주1~2","주3+"]},{"pid":"P04","sex":"M","by":1988,"region":"서울","timing":"1년이내","cp":"원치않음","ec":"없음","mh":"초혼","rel":"무교","smk":"전자담배","drk":"주1~2","req_timing":["1년이내","1~2년","2~3년","3년이상"],"req_cp":["원함","원치않음","미정"],"cp_abs":false,"req_ec":["없음","있음-비양육","있음-양육중"],"req_mh":["초혼","재혼"],"req_rel":"무관","req_regions":null,"req_age_min":null,"req_age_max":null,"req_smk":["비흡연","전자담배","흡연"],"req_drk":["안함","가끔","주1~2","주3+"]},{"pid":"P05","sex":"F","by":1997,"region":"서울","timing":"2~3년","cp":"원함","ec":"없음","mh":"초혼","rel":"천주교","smk":"비흡연","drk":"가끔","req_timing":["1년이내","1~2년","2~3년","3년이상"],"req_cp":["원함","원치않음","미정"],"cp_abs":false,"req_ec":["없음","있음-비양육","있음-양육중"],"req_mh":["초혼","재혼"],"req_rel":"무관","req_regions":null,"req_age_min":null,"req_age_max":null,"req_smk":["비흡연","전자담배","흡연"],"req_drk":["안함","가끔","주1~2","주3+"]},{"pid":"P06","sex":"M","by":1985,"region":"부산","timing":"1~2년","cp":"원치않음","ec":"있음-양육중","mh":"재혼","rel":"불교","smk":"흡연","drk":"주1~2","req_timing":["1년이내","1~2년","2~3년","3년이상"],"req_cp":["원함","원치않음","미정"],"cp_abs":false,"req_ec":["없음","있음-비양육","있음-양육중"],"req_mh":["초혼","재혼"],"req_rel":"무관","req_regions":null,"req_age_min":null,"req_age_max":null,"req_smk":["비흡연","전자담배","흡연"],"req_drk":["안함","가끔","주1~2","주3+"]},{"pid":"P07","sex":"F","by":1993,"region":"부산","timing":"1년이내","cp":"원함","ec":"없음","mh":"초혼","rel":"개신교","smk":"비흡연","drk":"안함","req_timing":["1년이내","1~2년","2~3년","3년이상"],"req_cp":["원함","원치않음","미정"],"cp_abs":false,"req_ec":["없음","있음-비양육","있음-양육중"],"req_mh":["초혼","재혼"],"req_rel":"동일종교만","req_regions":null,"req_age_min":null,"req_age_max":null,"req_smk":["비흡연","전자담배","흡연"],"req_drk":["안함","가끔","주1~2","주3+"]},{"pid":"P08","sex":"M","by":1991,"region":"경기","timing":"1~2년","cp":"원함","ec":"없음","mh":"초혼","rel":"무교","smk":"비흡연","drk":"가끔","req_timing":["1년이내","1~2년","2~3년","3년이상"],"req_cp":["원함","원치않음","미정"],"cp_abs":false,"req_ec":["없음","있음-비양육","있음-양육중"],"req_mh":["초혼","재혼"],"req_rel":"무관","req_regions":null,"req_age_min":null,"req_age_max":null,"req_smk":["비흡연","전자담배","흡연"],"req_drk":["안함","가끔","주1~2","주3+"]},{"pid":"P09","sex":"F","by":1996,"region":"서울","timing":"2~3년","cp":"미정","ec":"없음","mh":"초혼","rel":"무교","smk":"비흡연","drk":"주1~2","req_timing":["1년이내","1~2년","2~3년","3년이상"],"req_cp":["원함","원치않음","미정"],"cp_abs":false,"req_ec":["없음","있음-비양육","있음-양육중"],"req_mh":["초혼","재혼"],"req_rel":"무관","req_regions":null,"req_age_min":null,"req_age_max":null,"req_smk":["비흡연","전자담배","흡연"],"req_drk":["안함","가끔","주1~2","주3+"]},{"pid":"P10","sex":"M","by":1989,"region":"대전","timing":"2~3년","cp":"미정","ec":"없음","mh":"초혼","rel":"무교","smk":"비흡연","drk":"가끔","req_timing":["1년이내","1~2년","2~3년","3년이상"],"req_cp":["원함","원치않음","미정"],"cp_abs":false,"req_ec":["없음","있음-비양육","있음-양육중"],"req_mh":["초혼","재혼"],"req_rel":"무관","req_regions":null,"req_age_min":null,"req_age_max":null,"req_smk":["비흡연","전자담배","흡연"],"req_drk":["안함","가끔","주1~2","주3+"]},{"pid":"P11","sex":"F","by":1994,"region":"서울","timing":"1~2년","cp":"원함","ec":"없음","mh":"초혼","rel":"무교","smk":"비흡연","drk":"가끔","req_timing":["1년이내","1~2년","2~3년","3년이상"],"req_cp":["원함","원치않음","미정"],"cp_abs":false,"req_ec":["없음","있음-비양육","있음-양육중"],"req_mh":["초혼","재혼"],"req_rel":"무관","req_regions":null,"req_age_min":null,"req_age_max":null,"req_smk":["비흡연","전자담배","흡연"],"req_drk":["안함","가끔","주1~2","주3+"]},{"pid":"P12","sex":"M","by":1987,"region":"인천","timing":"1년이내","cp":"원함","ec":"없음","mh":"초혼","rel":"무교","smk":"흡연","drk":"주3+","req_timing":["1년이내","1~2년","2~3년","3년이상"],"req_cp":["원함","원치않음","미정"],"cp_abs":false,"req_ec":["없음","있음-비양육","있음-양육중"],"req_mh":["초혼","재혼"],"req_rel":"무관","req_regions":null,"req_age_min":null,"req_age_max":null,"req_smk":["비흡연","전자담배","흡연"],"req_drk":["안함","가끔","주1~2","주3+"]}];
+
+const FORM_A = [
+  {k:"intent", q:"결혼을 생각하고 계신가요?",
+   hint:"지금 확신이 없으셔도 괜찮습니다. 진단 결과는 똑같이 보여드리고, 나중에 마음이 정해지시면 그때 소개를 시작해 드립니다.",
+   opts:["네, 결혼할 사람을 찾고 있습니다","아직 잘 모르겠습니다"], def:0},
+  {k:"sex", q:"성별", opts:["남성","여성"], def:0},
+  {k:"by", q:"출생연도", type:"year", def:1992},
+  {k:"region", q:"거주 지역", opts:["서울","경기","인천","부산","대전"], def:0},
+  {k:"timing", q:"언제쯤 결혼하고 싶으신가요?",
+   opts:["1년이내","1~2년","2~3년","3년이상"], def:1},
+  {k:"cp", q:"아이를 원하시나요?", opts:["원함","원치않음","미정"], def:0,
+   abs:"이건 저에게 양보할 수 없는 조건입니다",
+   absHint:"체크하시면 생각이 다르거나 아직 정하지 않은 분은 소개하지 않습니다"},
+  {k:"ec", q:"지금 자녀가 있으신가요?", opts:["없음","있음-양육중","있음-비양육"], def:0},
+  {k:"mh", q:"결혼하신 적이 있으신가요?",
+   hint:"이전 결혼 이력도 매칭에서 동일하게 존중해 반영합니다.",
+   opts:["초혼","재혼"], def:0},
+  {k:"rel", q:"종교가 있으신가요?",
+   hint:"민감정보 동의를 하신 경우에만 표시되는 항목입니다. 동의하지 않으시면 종교 조건은 '상관없음'으로 처리됩니다.",
+   opts:["무교","개신교","천주교","불교","그 외"], def:0},
+  {k:"smk", q:"담배", opts:["비흡연","전자담배","흡연"], def:0},
+  {k:"drk", q:"술", opts:[["마시지 않습니다","안함"],["가끔","가끔"],
+                          ["주 1~2회","주1~2"],["주 3회 이상","주3+"]], def:1},
+];
+
+const BELIEF_INTRO = "결혼을 두고 어떻게 생각하시는지, 짧게 몇 가지만 여쭤볼게요. 여기부터는 사람마다 답이 갈려요.";
+const BELIEF_CLOSE = "사주 궁합도 MBTI 궁합도 저희가 맞춰 보지 않아요. 그건 회원님 몫으로 둘게요. 사주와 MBTI 답은 한 군데에만 써요. 한쪽은 보는데 다른 쪽은 그게 받아들이기 어려운 짝이 생기면, 그 짝은 소개 순서에서 뒤로 가요.";
+
+const FORM_B = [
+  {k:"saju_self", group:"사주 · 궁합",
+   q:"결혼을 정할 때, 회원님은 사주나 궁합을 보시나요?",
+   opts:["봐요. 안 좋게 나오면 다시 생각해요",
+         "봐요. 결과는 참고하는 정도예요",
+         "가끔 봐요. 재미로 보는 정도예요",
+         "안 봐요. 결정에 넣지 않아요"]},
+  {k:"saju_other", group:"",
+   q:"만날 분이 사주나 궁합을 보는 분이라면, 회원님은 어떠세요?",
+   opts:["좋아요. 같이 보러 갈 수 있으면 더 좋아요",
+         "괜찮아요. 결정에 쓰셔도 상관없어요",
+         "괜찮아요. 참고 정도까지면 좋겠어요",
+         "어려워요. 사주 없이 정하고 싶어요"]},
+  {k:"saju_family", group:"",
+   q:"이번엔 집 쪽이에요. 결혼 얘기가 오가면 양쪽 집에서 궁합을 보는 일이 흔한데, 회원님 생각에 회원님 집은 어느 쪽에 가까울 것 같으세요?",
+   opts:["보실 거예요. 인사 전에 생년월일부터 챙기실 거예요",
+         "보실 거예요. 얘기가 오가는 중에 한 번 보실 거예요",
+         "보실 거예요. 날 잡을 때쯤 확인 삼아 보실 거예요",
+         "안 보실 거예요. 얘기에 오르지 않을 거예요"]},
+  {k:"mbti_self", group:"MBTI",
+   q:"만날지 정할 때, 회원님은 상대 MBTI도 보시나요?",
+   opts:["봐요. 빼놓지 않는 기준이에요",
+         "봐요. 사람 읽는 실마리 정도예요",
+         "가끔 봐요. 얘깃거리로 보는 정도예요",
+         "안 봐요. 그걸로 뭘 정하진 않아요"]},
+  {k:"mbti_other", group:"",
+   q:"만날 분이 회원님 MBTI를 물어보고, 만날지 정할 때 그것도 보는 분이라면 어떠세요?",
+   opts:["좋아요. 유형까지 보고 만나자는 거면 더 확실하니까요",
+         "그럴 수 있죠. 그걸로 정하셔도 서운하진 않아요",
+         "그럴 수 있죠. 다만 정하실 땐 저를 보셨으면 해요",
+         "부담돼요. 유형은 빼고 저를 알아가셨으면 해요"]}
+];
+
+const FORM_C = [
+  {k:"req_ec", q:"자녀가 있는 분도 소개해 드릴까요?",
+   opts:[["네, 상관없습니다",["없음","있음-양육중","있음-비양육"]],
+         ["함께 살지 않는 경우만",["없음","있음-비양육"]],
+         ["아니요",["없음"]]], def:0},
+  {k:"req_timing", q:"결혼 시기가 저와 다른 분도 소개해 드릴까요?",
+   opts:[["네, 상관없습니다",null],["비슷한 시기인 분만","near"]], def:0},
+  {k:"req_mh", q:"결혼 이력", opts:[["상관없습니다",["초혼","재혼"]],["초혼인 분만",["초혼"]]], def:0},
+  {k:"req_rel", q:"종교", opts:[["상관없습니다","무관"],["같은 종교인 분만","동일종교만"]], def:0},
+  {k:"req_smk", q:"담배", opts:[["상관없습니다",["비흡연","전자담배","흡연"]],["비흡연인 분만",["비흡연"]]], def:0},
+  {k:"req_drk", q:"술", opts:[["상관없습니다",["안함","가끔","주1~2","주3+"]],
+         ["주 3회 이상은 빼주세요",["안함","가끔","주1~2"]]], def:0},
+  {k:"req_age", q:"나이", opts:[["상관없습니다",null],["±3세",3],["±5세",5]], def:0},
+  {k:"req_region", q:"지역", opts:[["상관없습니다",null],["같은 지역만","same"]], def:0}
+];
+
+const TIMING = ["1년이내","1~2년","2~3년","3년이상"];
+const me = {};      // A 응답
+const myReq = {};   // C 응답
+
+function oneWay(req, self, other){
+  const f = [];
+  if (req.req_timing && !req.req_timing.includes(other.timing)) f.push("결혼 시점");
+  const cpAllowed = req.req_cp || ["원함","원치않음","미정"];
+  if (!cpAllowed.includes(other.cp)) f.push("자녀 계획");
+  else if (req.cp_abs && other.cp === "미정") f.push("자녀 계획");
+  if (req.req_ec && !req.req_ec.includes(other.ec)) f.push("기존 자녀");
+  if (req.req_mh && !req.req_mh.includes(other.mh)) f.push("결혼 이력");
+  if (req.req_rel === "동일종교만" && other.rel !== self.rel) f.push("종교");
+  if (req.req_region === "same" && other.region !== self.region) f.push("지역");
+  if (req.req_age != null){
+    const a = 2026 - self.by, b = 2026 - other.by;
+    if (Math.abs(a - b) > req.req_age) f.push("연령");
+  }
+  if (req.req_smk && !req.req_smk.includes(other.smk)) f.push("흡연");
+  if (req.req_drk && !req.req_drk.includes(other.drk)) f.push("음주");
+  return f;
+}
+
+function poolReq(p){
+  return {req_timing:p.req_timing, req_cp:p.req_cp, cp_abs:p.cp_abs, req_ec:p.req_ec,
+          req_mh:p.req_mh, req_rel:p.req_rel==="무관"?null:p.req_rel,
+          req_region:p.req_regions?"same":null,
+          req_age:(p.req_age_min==null&&p.req_age_max==null)?null:5,
+          req_smk:p.req_smk, req_drk:p.req_drk};
+}
+
+function runFilter(){
+  const mySex = me.sex === "남성" ? "M" : "F";
+  const cand = POOL.filter(p => p.sex !== mySex);
+  const mine = [], theirs = [];
+  let pass = 0;
+  const myFacts = {timing:me.timing, cp:me.cp, ec:me.ec, mh:me.mh, rel:me.rel,
+                   smk:me.smk, drk:me.drk, region:me.region, by:me.by};
+  cand.forEach(p => {
+    const f1 = oneWay(myReq, myFacts, p);
+    const f2 = oneWay(poolReq(p), p, myFacts);
+    if (f1.length) mine.push(...new Set(f1));
+    else if (f2.length) theirs.push(...new Set(f2));
+    else pass++;
+  });
+  const tally = arr => { const m = {}; arr.forEach(x => m[x] = (m[x]||0)+1);
+    return Object.entries(m).sort((a,b) => b[1]-a[1]); };
+  return {total:cand.length, pass, mineCut:mine.length?tally(mine):[],
+          theirsCut:theirs.length, byMine:cand.length - pass - theirs.length};
+}
+
+let sample = null, i = 0, phase = "main", answers = [], ctrl = null;
+const $ = id => document.getElementById(id);
+
+const T = { formA:[null,null], quiz:[null,null], formC:[null,null], perQ:{} };
+const now = () => Date.now();
+const mark = (k, j) => { T[k][j] = now(); };
+function mmss(ms){
+  if (ms == null || ms < 0) return "—";
+  const s = Math.round(ms/1000);
+  return Math.floor(s/60) + "분 " + String(s%60).padStart(2,"0") + "초";
+}
+const span = k => (T[k][0] && T[k][1]) ? T[k][1]-T[k][0] : null;
+
+const KEY = "machcoach.onboarding.v1";
+let saveTimer = null;
+function save(){
+  try {
+    localStorage.setItem(KEY, JSON.stringify({
+      v:1, at:now(), me, myReq, answers, i, phase, T
+    }));
+    const el = $("savedNote");
+    if (el) { el.textContent = "저장됨"; el.classList.add("on");
+      clearTimeout(saveTimer); saveTimer = setTimeout(()=>el.classList.remove("on"), 1400); }
+  } catch (e) { /* 프라이빗 모드 등 — 저장 없이도 동작해야 한다 */ }
+}
+function loadDraft(){
+  try {
+    const raw = localStorage.getItem(KEY);
+    if (!raw) return null;
+    const d = JSON.parse(raw);
+    if (!d || d.v !== 1 || !Array.isArray(d.answers) || !d.answers.length) return null;
+    return d;
+  } catch (e) { return null; }
+}
+function clearDraft(){ try { localStorage.removeItem(KEY); } catch (e) {} }
+
+(async () => {
+  try { sample = await claude.use("sample"); } catch (e) { sample = null; }
+  if (!sample) $("unavailable").hidden = false;
+})();
+
+$("start").onclick = () => {
+  clearDraft();
+  $("intro").hidden = true; $("formA").hidden = false; mark("formA",0); renderA();
+};
+
+(function offerResume(){
+  const d = loadDraft();
+  if (!d) return;
+  const ago = Math.round((now() - d.at)/60000);
+  const when = ago < 1 ? "방금 전" : ago < 60 ? ago + "분 전" : Math.round(ago/60) + "시간 전";
+  const box = document.createElement("div");
+  box.className = "resume";
+  box.innerHTML = '<p><strong>하다 만 진단이 있습니다.</strong> ' + d.answers.filter(Boolean).length +
+    '개 문항까지 답하셨어요.</p><p class="when">마지막 저장 ' + when + '</p>' +
+    '<div class="row"><button class="btn" id="resumeGo">이어서 하기</button>' +
+    '<button class="btn ghost" id="resumeNew">처음부터</button></div>';
+  const intro = $("intro");
+  intro.insertBefore(box, intro.querySelector(".row"));
+  $("resumeGo").onclick = () => {
+    Object.assign(me, d.me || {}); Object.assign(myReq, d.myReq || {});
+    answers = d.answers; i = d.i || 0; phase = d.phase || "main";
+    if (d.T) { T.formA = d.T.formA || T.formA; T.quiz = d.T.quiz || T.quiz;
+               T.formC = d.T.formC || T.formC; T.perQ = d.T.perQ || {}; }
+    $("intro").hidden = true; $("quiz").hidden = false; render();
+  };
+  $("resumeNew").onclick = () => { clearDraft(); box.remove(); };
+})();
+
+function renderA(){
+  $("formAbody").innerHTML = FORM_A.map((f, n) => {
+    let ctl;
+    if (f.type === "year")
+      ctl = `<input type="number" id="fa${n}" value="${f.def}" min="1960" max="2006" step="1">`;
+    else ctl = `<div class="opts">` + f.opts.map((o, k) => {
+      const [lab, val] = Array.isArray(o) ? o : [o, o];
+      return `<label><input type="radio" name="fa${n}" value="${esc(val)}"${k===f.def?" checked":""}>${esc(lab)}</label>`;
+    }).join("") + `</div>`;
+    return `<div class="fld"><label>${esc(f.q)}</label>` +
+      (f.hint ? `<p class="hint">${esc(f.hint)}</p>` : "") + ctl +
+      (f.abs ? `<label class="abs"><input type="checkbox" id="abs${n}"> ${esc(f.abs)}<span class="hint" style="margin:0"> — ${esc(f.absHint)}</span></label>` : "") +
+      `</div>`;
+  }).join("");
+}
+
+$("toQuiz").onclick = () => {
+  FORM_A.forEach((f, n) => {
+    if (f.type === "year") me[f.k] = parseInt($("fa"+n).value, 10) || f.def;
+    else {
+      const el = document.querySelector(`input[name=fa${n}]:checked`);
+      const d = f.opts[f.def];
+      me[f.k] = el ? el.value : (Array.isArray(d) ? d[1] : d);
+    }
+    if (f.abs) me.cp_abs = $("abs"+n).checked;
+  });
+  if (me.intent && me.intent.indexOf("아직") === 0) {
+    $("formAnote").textContent = "결혼 의향이 미정이면 실제 서비스에서는 소개가 시작되지 않습니다. 진단은 그대로 진행됩니다.";
+  }
+  $("formA").hidden = true; $("formBelief").hidden = false; renderB();
+};
+
+function renderB(){
+  $("beliefIntro").textContent = BELIEF_INTRO;
+  $("beliefCloseText").textContent = BELIEF_CLOSE;
+  let html = "", open = false;
+  FORM_B.forEach((f, n) => {
+    if (f.group) { if (open) html += `</div>`; html += `<div class="qgroup"><div class="gh">${esc(f.group)}</div>`; open = true; }
+    const poles = f.poles
+      ? `<div class="poles"><span>${esc(f.poles[0])}</span><em>—</em><span>${esc(f.poles[1])}</span></div>` : "";
+    html += `<div class="fld"><label>${esc(f.q)}</label>${poles}<div class="vopts">` +
+      f.opts.map((o, k) =>
+        `<label><input type="radio" name="fb${n}" value="${k}">${esc(o)}</label>`).join("") +
+      `</div></div>`;
+    const next = FORM_B[n+1];
+    if (open && (!next || next.group !== "")) { html += `</div>`; open = false; }
+  });
+  $("beliefBody").innerHTML = html;
+  $("beliefBody").addEventListener("change", beliefCheck);
+  beliefCheck();
+}
+
+function beliefCheck(){
+  const done = FORM_B.every((f, n) => document.querySelector(`input[name=fb${n}]:checked`));
+  $("beliefClose").hidden = !done;
+  $("beliefNote").hidden = done;
+  if (done) FORM_B.forEach((f, n) => {
+    const el = document.querySelector(`input[name=fb${n}]:checked`);
+    me[f.k] = parseInt(el.value, 10);
+  });
+}
+
+$("toQuiz2").onclick = () => {
+  mark("formA",1); mark("quiz",0);
+  $("formBelief").hidden = true; $("quiz").hidden = false; render(); save();
+};
+
+function renderC(){
+  $("formCbody").innerHTML = FORM_C.map((f, n) =>
+    `<div class="fld"><label>${esc(f.q)}</label><div class="opts">` +
+    f.opts.map((o, k) => `<label><input type="radio" name="fc${n}" value="${k}"${k===f.def?" checked":""}>${esc(o[0])}</label>`).join("") +
+    `</div></div>`).join("");
+}
+
+function collectC(useDefaults){
+  FORM_C.forEach((f, n) => {
+    let k = f.def;
+    if (!useDefaults) {
+      const el = document.querySelector(`input[name=fc${n}]:checked`);
+      if (el) k = parseInt(el.value, 10);
+    }
+    let v = f.opts[k][1];
+    if (f.k === "req_timing" && v === "near") {
+      const i0 = TIMING.indexOf(me.timing);
+      v = TIMING.filter((_, j) => Math.abs(j - i0) <= 1);
+    }
+    if (f.k === "req_age") myReq.req_age = v;
+    else if (f.k === "req_region") myReq.req_region = v;
+    else myReq[f.k] = v;
+  });
+  myReq.req_cp = ["원함","원치않음","미정"];
+  myReq.cp_abs = !!me.cp_abs;
+  if (myReq.cp_abs) myReq.req_cp = [me.cp];
+}
+
+function autosize(ta){
+  ta.style.height = "auto";
+  ta.style.height = Math.max(110, ta.scrollHeight + 2) + "px";
+}
+
+function render(){
+  const q = Q[i];
+  if (!T.quiz[0]) mark("quiz",0);
+  if (!T.perQ[q.id]) T.perQ[q.id] = now();
+  const last = (i === Q.length-1 && phase === "follow");
+  $("progLabel").textContent = (i+1) + " / " + Q.length + (phase === "follow" ? " · 이어서" : "");
+  $("progBar").style.width = ((i + (phase==="follow"?.5:0)) / Q.length * 100) + "%";
+  const prior = (phase === "follow")
+    ? `<div class="said"><span class="who">회원님</span>${esc(answers[i].main)}</div>` : "";
+  const stage = (phase==="main" && q.stage) ? `<p class="stage">${q.stage}</p>` : "";
+  const lines = (phase === "main") ? q.main.map(l=>`<p>${l}</p>`).join("") : `<p>${q.follow}</p>`;
+  const canBack = !(i === 0 && phase === "main");
+  const draft = (phase === "main")
+    ? ((answers[i] && answers[i].main) || "")
+    : ((answers[i] && answers[i].follow) || "");
+  $("qbody").innerHTML = `
+    ${canBack ? `<div class="backrow"><button class="backlink" id="back">← 앞 질문으로</button></div>` : ""}
+    ${prior}
+    <div class="turn">${stage}${lines}</div>
+    <textarea id="ans" placeholder="편하게 쓰세요. 완성된 문장이 아니어도 됩니다."></textarea>
+    <p class="qnote" id="qnote" hidden></p>
+    <div class="row">
+      <button class="btn" id="next">${last ? "결과 보기" : "다음"}</button>
+      <span class="note">짧아도 괜찮습니다. 구체적인 예가 있으면 더 좋아요.</span>
+      <span class="saved" id="savedNote"></span>
+    </div>`;
+  const ta = $("ans");
+  ta.value = draft; autosize(ta); ta.focus();
+  ta.setSelectionRange(ta.value.length, ta.value.length);
+
+  if (canBack) $("back").onclick = () => {
+    if (phase === "follow") phase = "main";
+    else { i--; phase = "follow"; }
+    render();
+  };
+
+  $("next").onclick = () => {
+    const v = ta.value.trim();
+    if (!v) {
+      const n = $("qnote");
+      n.textContent = "답을 적으셔야 다음으로 넘어갑니다. 한 줄이어도 괜찮아요.";
+      n.hidden = false; ta.focus(); return;
+    }
+    if (phase === "main") {
+      answers[i] = Object.assign({}, answers[i], {id:q.id, main:v});
+      phase = "follow"; save(); render();
+    } else {
+      answers[i].follow = v; save();
+      if (i === Q.length - 1) {
+        mark("quiz",1); mark("formC",0);
+        $("quiz").hidden = true; $("formC").hidden = false; renderC(); window.scrollTo({top:0});
+      } else { i++; phase = "main"; render(); }
+    }
+  };
+
+  let typeTimer = null;
+  ta.addEventListener("input", () => {
+    autosize(ta);
+    if (ta.value.trim()) $("qnote").hidden = true;
+    clearTimeout(typeTimer);
+    typeTimer = setTimeout(() => {
+      if (phase === "main") answers[i] = Object.assign({}, answers[i], {id:q.id, main:ta.value});
+      else if (answers[i]) answers[i].follow = ta.value;
+      save();
+    }, 900);
+  });
+  ta.addEventListener("keydown", e => {
+    if ((e.metaKey || e.ctrlKey) && e.key === "Enter") $("next").click();
+  });
+}
+
+function esc(s){ return String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c])); }
+
+const PROMPT = () => "";   // 공유판은 진단을 돌리지 않는다
+
+$("toResult").onclick = () => { collectC(false); mark("formC",1); clearDraft();
+  $("formC").hidden = true; run(); };
+$("skipC").onclick   = () => { collectC(true);  mark("formC",1); clearDraft();
+  $("formC").hidden = true; run(); };
+
+function exportText(){
+  const pad = n => String(n).padStart(2, "0");
+  const dt = new Date();
+  const stamp = dt.getFullYear() + "-" + pad(dt.getMonth()+1) + "-" + pad(dt.getDate())
+    + " " + pad(dt.getHours()) + ":" + pad(dt.getMinutes());
+  const dur = ms => ms == null ? "(측정 안 됨)"
+    : Math.floor(ms/60000) + "분 " + Math.floor((ms%60000)/1000) + "초";
+
+  const L = [];
+  L.push("=== 매치코치 진단 답변 ===");
+  L.push("작성 " + stamp);
+  L.push("");
+  L.push("[소요 시간]");
+  L.push("조건 폼      " + dur(span("formA")));
+  L.push("상황 문항    " + dur(span("quiz")));
+  L.push("요구 조건    " + dur(span("formC")));
+  const per = Object.keys(T.perQ || {}).sort((a, b) => T.perQ[a] - T.perQ[b]);
+  if (per.length) {
+    L.push("문항별 (마지막 문항은 다음 화면으로 넘어간 시각까지):");
+    per.forEach((k, n) => {
+      const end = (n + 1 < per.length) ? T.perQ[per[n+1]] : (T.formC[0] || T.quiz[1]);
+      L.push("  " + k + " " + (end ? dur(end - T.perQ[k]) : "(측정 안 됨)"));
+    });
+  }
+  L.push("");
+  L.push("[조건]");
+  Object.keys(me).forEach(k => {
+    const f = FORM_B.find(x => x.k === k);
+    const label = (f && f.opts[me[k]]) ? "  (" + f.opts[me[k]] + ")" : "";
+    L.push("  " + k + ": " + JSON.stringify(me[k]) + label);
+  });
+  L.push("");
+  L.push("[신념 문항 — 물어본 말과 고른 답]");
+  FORM_B.forEach(f => {
+    L.push("  Q. " + f.q);
+    L.push("  A. " + (f.opts[me[f.k]] || "(답 없음)"));
+  });
+  L.push("");
+  L.push("[요구 조건]");
+  Object.keys(myReq).forEach(k => L.push("  " + k + ": " + JSON.stringify(myReq[k])));
+  L.push("");
+  L.push("[상황 답변]");
+  answers.forEach(a => {
+    if (!a || !a.id) return;
+    const q = Q.find(x => x.id === a.id);
+    if (!q) return;
+    L.push("");
+    L.push("-- " + a.id);
+    L.push(q.main.join(" "));
+    L.push("A: " + (a.main || ""));
+    L.push("Q: " + q.follow);
+    L.push("A: " + (a.follow || ""));
+  });
+  L.push("");
+  L.push("[하다가 걸린 점]");
+  L.push(($("fbText") && $("fbText").value.trim()) || "(안 적음)");
+  L.push("");
+  L.push("=== 끝 ===");
+  return L.join("\n");
+}
+
+function showExport(){
+  const canSave = (typeof window.claude === "undefined");
+  $("result").hidden = false;
+  $("result").innerHTML =
+    '<div class="eyebrow">다 하셨습니다</div>' +
+    '<h1 style="font-size:var(--step-3);margin-bottom:18px">답변을 저장해 주세요</h1>' +
+    '<div class="turn"><p>이 화면에서는 결과가 바로 나오지 않습니다. ' +
+    '아래 답변을 <strong>' + (canSave ? '저장하거나 복사' : '복사') + '</strong>하셔서 보내 주시면, <strong>결과지를 만들어 보내 드립니다.</strong></p>' +
+    '<p class="stage">답변은 이 브라우저 밖으로 저절로 나가지 않습니다. 저장하셔서 직접 보내 주셔야 저희가 볼 수 있습니다.</p></div>' +
+    '<div class="fld" style="margin-top:20px"><label for="fbText">하시면서 걸린 점이 있으면 적어 주세요 <span class="hint">(안 적으셔도 됩니다)</span></label>' +
+    '<textarea id="fbText" rows="4" placeholder="이해가 안 된 문항, 답하기 어려웠던 곳, 화면에서 걸린 것 — 무엇이든"></textarea></div>' +
+    '<div class="row" style="margin-top:18px">' +
+    (canSave ? '<button class="btn" id="dlBtn">파일로 저장</button>' : "") +
+    '<button class="btn' + (canSave ? " ghost" : "") + '" id="cpBtn">답변 복사하기</button></div>' +
+    '<p class="hint" id="expMsg" style="margin-top:10px"></p>' +
+    '<details style="margin-top:18px"' + (canSave ? "" : " open") + '><summary class="hint">보낼 내용 보기</summary>' +
+    '<textarea id="expArea" rows="14" readonly style="margin-top:10px;font-family:var(--mono,monospace);font-size:13px"></textarea>' +
+    '<p class="hint">버튼이 안 되면 위 내용을 직접 복사해 주세요.</p></details>';
+
+  const refresh = () => { $("expArea").value = exportText(); };
+  refresh();
+  $("fbText").addEventListener("input", refresh);
+
+  if (canSave) $("dlBtn").onclick = () => {
+    refresh();
+    try {
+      const blob = new Blob([exportText()], {type:"text/plain;charset=utf-8"});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url; a.download = "매치코치-답변.txt";
+      document.body.appendChild(a); a.click();
+      document.body.removeChild(a);
+      setTimeout(() => URL.revokeObjectURL(url), 1000);
+      $("expMsg").textContent = "저장했습니다. 그 파일을 보내 주세요.";
+    } catch (e) {
+      $("expMsg").textContent = "저장이 안 됐습니다. 아래 '저장될 내용 보기'를 열어 직접 복사해 주세요.";
+    }
+  };
+
+  $("cpBtn").onclick = async () => {
+    refresh();
+    const t = exportText();
+    let ok = false;
+    try { await navigator.clipboard.writeText(t); ok = true; } catch (e) {
+      try { $("expArea").select(); ok = document.execCommand("copy"); } catch (e2) { ok = false; }
+    }
+    $("expMsg").textContent = ok ? "복사했습니다. 붙여넣어 보내 주세요."
+      : "복사가 안 됐습니다. 아래 '저장될 내용 보기'를 열어 직접 복사해 주세요.";
+  };
+
+  window.scrollTo({top:0, behavior:"smooth"});
+}
+
+async function run(){
+  if (!sample) { showExport(); return; }
+  $("loading").hidden = false;
+  ctrl = new AbortController();
+  $("stop").onclick = () => ctrl.abort();
+  try {
+    const d = await sample.json(PROMPT(answers), {modelTier:"complex", signal:ctrl.signal});
+    $("loading").hidden = true; show(d);
+  } catch (e) {
+    $("loading").hidden = true;
+    const msg = e && e.code === "cancelled" ? "진단을 그만뒀습니다."
+      : e && e.code === "not_granted" ? "Claude 사용을 허용하지 않으셔서 결과를 만들 수 없습니다."
+      : e && e.code === "rate_limited" ? "지금 요청이 몰려 있습니다. 잠시 뒤 다시 시도해 주세요."
+      : "결과를 만들지 못했습니다. 다시 시도해 주세요.";
+    $("result").hidden = false;
+    $("result").innerHTML = `<div class="err">${msg}</div>
+      <div class="row"><button class="btn" onclick="location.reload()">다시 하기</button></div>`;
+  }
+}
+
+const WEAK = 0.20;
+
+function scoreAxis(ax, verdicts){
+  const sits = COVER[ax.k] || [];
+  const v = (verdicts && verdicts[ax.k]) || {};
+  let hi = 0, lo = 0, unclear = 0;
+  sits.forEach(id => {
+    const raw = String(v[id] || "").toLowerCase();
+    if (raw === ax.hi) hi++;
+    else if (raw === ax.lo) lo++;
+    else unclear++;
+  });
+  const n = sits.length;
+  if (!n) return null;
+  const maj = Math.max(hi, lo), min = Math.min(hi, lo);
+  const strength = Math.max(0, (maj - min) / n) * (n / (n + 1));
+  return {isHi: hi >= lo, strength, hi, lo, unclear, n};
+}
+
+
+function filterPanel(){
+  const r = runFilter();
+  const none = r.pass === 0;
+  const headline = none
+    ? "이번 주에는 조건이 맞는 분을 찾지 못했습니다."
+    : `조건이 맞는 분이 <b style="font-family:var(--mono)">${r.pass}</b>분 있습니다.`;
+
+  let why = "";
+  if (none) {
+    if (r.mineCut.length) {
+      const top = r.mineCut.slice(0,2).map(x => x[0]).join("과 ");
+      why = `<p>살펴본 ${r.total}분 모두 <strong>${esc(top)}</strong>이(가) 회원님과 달랐습니다. 다음 주에 다시 찾아보겠습니다.</p>`;
+    } else {
+      why = `<p>살펴본 ${r.total}분 모두 조건이 맞지 않았습니다. 다음 주에 다시 찾아보겠습니다.</p>`;
+    }
+    why += `<p class="hint" style="margin-top:10px">기준을 낮춰 자리를 채우지 않습니다. 없으면 없다고 말하는 것이 이 서비스가 파는 유일한 것입니다.</p>`;
+  }
+
+  const cut = r.mineCut.map(([k,n]) =>
+    `<div><span>${esc(k)}</span><b>${n}명</b></div>`).join("");
+
+  const w = x => (x / r.total * 100).toFixed(1) + "%";
+  return `
+  <div class="fres">
+    <div class="fh">
+      <h2>조건으로 먼저 거른 결과</h2>
+      <p>진단과는 상관없이, <strong>사실로 확인되는 조건</strong> — 결혼 시점, 자녀 계획, 종교, 지역, 흡연 같은 것 — 만으로 후보를 먼저 거릅니다. 실제로 사람이 걸러지는 자리는 여기입니다.</p>
+    </div>
+    <div class="bigline${none?" none":""}">${headline}</div>
+    <div style="padding:18px 26px 0">${why}
+      <p class="hint" style="margin:0">이성 후보 ${r.total}분 기준</p></div>
+    <div class="fbar">
+      <i style="background:var(--accent);width:${w(r.pass)}"></i>
+      <i style="background:var(--warn);width:${w(r.byMine)}"></i>
+      <i style="background:var(--surface-2);width:${w(r.theirsCut)}"></i>
+    </div>
+    <div class="flist">
+      <div><span>조건이 맞는 분</span><b>${r.pass}명</b></div>
+      <div><span>회원님 조건에서 걸림</span><b>${r.byMine}명</b></div>
+      <div><span>상대 조건에서 걸림</span><b>${r.theirsCut}명</b></div>
+      ${cut ? `<div style="border:none;padding-top:8px;color:var(--muted)"><span>회원님 조건 중 무엇이 걸렀나</span><b></b></div>` + cut : ""}
+    </div>
+    <div class="caution" style="margin:0;border-radius:0;border-left:none;border-right:none;border-bottom:none">
+      <h4>이 숫자에 대해</h4>
+      <p>여기 나온 후보 ${r.total}명은 <strong>실제 회원이 아닙니다.</strong> 화면이 어떻게 돌아가는지 보여드리려고 만든 가상 인물입니다. 다만 거르는 규칙은 실제 서비스와 똑같습니다.</p>
+      <p>실제 서비스에서는, <strong>어느 분이 상대 쪽 조건에서 회원님을 제외했는지 알려드리지 않습니다.</strong> "상대가 회원님을 조건에서 제외했습니다"라는 말은 알려드릴 이유가 없고, 듣는 분에게 해롭기만 합니다. 여기서는 구조를 보여드리기 위해 숫자만 표시했습니다.</p>
+    </div>
+  </div>`;
+}
+
+function show(d){
+  const verdicts = d.verdicts || {};
+  const ev = d.evidence || {};
+  const sdRaw = Number(d.social_desirability) || 0;
+  const sdCut = sdRaw >= 0.6 ? 0.2 : 0;
+
+  let code = "", bars = "", compat = "", weakCount = 0, agree = "";
+
+  AX.forEach(ax => {
+    const r = scoreAxis(ax, verdicts);
+    if (!r) return;
+    const s = Math.max(0, r.strength - sdCut);
+    const ch = r.isHi ? ax.H : ax.L;
+    const weak = s < WEAK;
+    if (weak) weakCount++;
+    code += weak ? `<span class="weak">${ch.toLowerCase()}</span>` : ch;
+
+    const pct = Math.round(s * 50);
+    const val = Math.round(50 + s * 50);
+    bars += `<div class="axis">
+      <div class="axis-labels">
+        <span>${r.isHi ? "<b>"+ax.hiK+"</b>" : ax.hiK}</span>
+        <span class="axis-val">${val}</span>
+        <span>${!r.isHi ? "<b>"+ax.loK+"</b>" : ax.loK}</span>
+      </div>
+      <div class="track2"><div class="fill${weak?" faint":""}" style="${r.isHi?"right:50%":"left:50%"};width:${pct}%"></div></div>
+    </div>`;
+
+    const maj = Math.max(r.hi, r.lo);
+    const majK = r.isHi ? ax.hiK : ax.loK;
+    agree += `<div class="crow"><span class="ck">${ax.nm}</span><span class="cv">${r.n}개 상황 중 <b>${maj}개</b>에서 ${majK} 쪽이었습니다. ` +
+      (r.unclear ? `${r.unclear}개에서는 ${ax.nm}이 드러나지 않았고, ` : "") +
+      (Math.min(r.hi,r.lo) ? `<b>${Math.min(r.hi,r.lo)}개에서는 반대쪽이었습니다.</b>` : "") +
+      `</span></div>`;
+
+    const side = r.isHi ? ax.hiK : ax.loK;
+    compat += weak
+      ? `<div class="crow dim"><span class="ck">${ax.nm}</span><span class="cv">상황마다 답이 갈려서, ${ax.nm}에서는 회원님이 어느 쪽인지 말하기 어려웠습니다. <b>상대가 어느 쪽이든 크게 영향이 없을 가능성이 큽니다.</b></span></div>`
+      : `<div class="crow"><span class="ck">${ax.nm}</span><span class="cv">회원님은 <b>${side}</b> 쪽입니다. ${ax.nm}에서는 <b>서로 비슷한 분</b>이 편할 가능성이 조금 더 큽니다.</span></div>`;
+  });
+
+  const firstEv = AX.map(a => ev[a.k]).filter(Boolean)[0];
+  const sd = sdRaw;
+  const sdNote = sd >= 0.6
+    ? `<div class="caution"><h4>한 가지 더</h4><p>답변이 대체로 이상적인 쪽으로 모였습니다. 이런 경우 저희는 <strong>네 가지 모두를 조금 덜 뚜렷한 것으로 잡습니다.</strong> 회원님을 판단해서가 아니라, <strong>그 답변만으로는 회원님에 대해 말할 수 있는 것이 적기 때문</strong>입니다.</p></div>` : "";
+
+
+  $("result").hidden = false;
+  $("result").innerHTML = `
+  <div class="eyebrow">진단 결과</div>
+  <h1 style="font-size:var(--step-3);margin-bottom:22px">읽어봤습니다</h1>
+
+  <div class="card">
+    <div class="code-row"><div class="code">${code}</div><div class="brandmark">매치코치</div></div>
+    <div>
+      <h3 class="name">${esc(d.name||"")}</h3>
+      <p class="oneliner">${esc(d.oneliner||"")}</p>
+    </div>
+    <div class="axes">${bars}</div>
+    <div class="blocks">
+      <div class="block"><h4>강점</h4><p>${esc(d.strength_text||"")}</p>
+        ${firstEv?`<p class="quote">“${esc(firstEv)}”</p>`:""}</div>
+      <div class="block"><h4>오해받기 쉬운 지점</h4><p>${esc(d.friction_text||"")}</p></div>
+      <div class="block"><h4>내가 편안함을 느끼는 순간</h4><p>${esc(d.comfort_text||"")}</p></div>
+    </div>
+    ${d.tip?`<p style="background:var(--surface-2);border-left:2px solid var(--accent);padding:12px 15px;font-size:var(--step--1);color:var(--ink-2);margin:0">${esc(d.tip)}</p>`:""}
+  </div>
+
+  ${sdNote}
+
+  ${filterPanel()}
+
+  <div class="compat">
+    <div class="ch">
+      <h2>이 결과는 어떻게 나왔나</h2>
+      <p>각각이 얼마나 뚜렷한지는 저희가 매긴 것이 아닙니다. <strong>같은 성향을 여러 상황에서 물었을 때, 답이 얼마나 한쪽으로 모였는지 또는 갈렸는지</strong>로 계산했습니다.</p>
+    </div>
+    ${agree}
+  </div>
+
+  <div class="compat">
+    <div class="ch">
+      <h2>어떤 분과 만나면 좋을까요</h2>
+      <p>네 가지 각각에 대해, 아는 만큼만 말씀드립니다. 뚜렷하지 않은 것은 비워 둡니다.</p>
+    </div>
+    ${compat}
+  </div>
+
+  <div class="caution">
+    <h4>여기서 솔직하게 말씀드릴 것</h4>
+    <p><strong>“당신의 짝은 OOOO형입니다”는 쓰지 않습니다.</strong> 만나기 전 설문으로 <strong>누가 누구와</strong> 맞는지 예측한 연구들이 있는데, 결과는 사실상 0에 가까웠습니다. 그런 문장을 쓰면 근거 없는 약속이 됩니다.</p>
+    <p>비슷한 쪽이 낫다는 방향성은 있지만 <strong>효과가 작습니다.</strong> 위 네 줄은 예측이 아니라 <strong>회원님이 무엇을 편해하는지에 대한 설명</strong>입니다.</p>
+    <p>실제 서비스에서 상대를 실제로 걸러내는 것은 이 네 가지가 아니라 <strong>결혼 시점·자녀 계획·종교·지역 같은 조건</strong>입니다. 그건 사실이라 확인할 수 있고, 안 맞으면 안 맞는다고 말할 수 있습니다.</p>
+    ${weakCount>0?`<p>네 가지 중 <strong>${weakCount}개는 회원님이 어느 쪽인지 뚜렷하지 않게</strong> 나왔습니다. 흐리게 표시한 것이 그것이고, 억지로 한쪽으로 정하지 않았습니다.</p>`:""}
+  </div>
+
+  ${clockPanel()}
+
+  <div class="row" style="margin-top:24px">
+    <button class="btn ghost" onclick="location.reload()">다시 해보기</button>
+  </div>`;
+  window.scrollTo({top:0, behavior:"smooth"});
+}
+
+function clockPanel(){
+  const a = span("formA"), q = span("quiz"), c = span("formC");
+  const form = (a != null && c != null) ? a + c : null;
+  const over = (ms, limit) => (ms != null && ms > limit) ? " class=\"over\"" : "";
+  return `
+  <div class="clock">
+    <div><span>조건 폼</span><b${over(form, 3*60000)}>${mmss(form)}</b></div>
+    <div><span>대화</span><b${over(q, 15*60000)}>${mmss(q)}</b></div>
+    <div><span>전체</span><b>${mmss((form||0) + (q||0))}</b></div>
+    <div><span>약속</span><b style="font-size:var(--step-0);font-weight:400">폼 2~3분 · 대화 10~15분</b></div>
+  </div>`;
+}
+</script>
